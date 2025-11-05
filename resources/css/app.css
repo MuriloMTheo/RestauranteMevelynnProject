@@ -1,21 +1,14 @@
-/*
- * Arquivo CSS Principal (app.css)
- * Estilo para um restaurante moderno e de classe alta.
- * Cores: Preto (#121212), Cinza Escuro (#1e1e1e), Amarelo Ouro (#C8A845), Roxo de destaque (#6A0DAD).
- */
-
-/* Variáveis CSS para a Paleta de Cores */
 :root {
-    --color-bg-dark: #121212; /* Preto/Fundo Principal */
-    --color-surface: #1e1e1e; /* Cinza Escuro para superfícies e containers */
-    --color-text-light: #f0f0f0; /* Texto Principal Claro */
-    --color-primary-gold: #c8a845; /* Amarelo Ouro de Destaque */
-    --color-accent-purple: #6a0dad; /* Toque de Roxo para Hover/Detalhes */
-    --font-stack: "Cormorant Garamond", Georgia, serif; /* Fonte Clássica e Elegante */
-    --font-stack-alt: "Inter", sans-serif; /* Fonte Sans-serif para corpo de texto */
+    --color-bg-dark: #121212;
+    --color-surface: #1e1e1e;
+    --color-text-light: #f0f0f0;
+    --color-primary-gold: #c8a845;
+    --color-accent-purple: #6a0dad;
+    --font-stack: "Cormorant Garamond", Georgia, serif;
+    --font-stack-alt: "Inter", sans-serif;
 }
 
-/* 1. Base e Reset */
+/*1-Base e Reset*/
 * {
     box-sizing: border-box;
     margin: 0;
@@ -30,7 +23,7 @@ body {
     min-height: 100vh;
 }
 
-/* 2. Tipografia */
+/*2-Tipografia */
 h1,
 h2 {
     font-family: var(--font-stack);
@@ -40,7 +33,7 @@ h2 {
 }
 
 h1 {
-    font-size: 2.5rem; /* Tamanho maior para o título principal */
+    font-size: 2.5rem;
     color: var(--color-primary-gold);
 }
 
@@ -53,10 +46,10 @@ h2 {
 
 p {
     font-size: 1rem;
-    color: #b0b0b0; /* Cinza um pouco mais claro para contraste */
+    color: #b0b0b0;
 }
 
-/* 3. Header e Navegação */
+/*3-Header e Navegação*/
 header {
     background-color: var(--color-surface);
     padding: 1.5rem 5%;
@@ -79,11 +72,11 @@ nav a {
 nav a:hover {
     color: var(--color-accent-purple);
     border-color: var(--color-accent-purple);
-    background-color: rgba(106, 13, 173, 0.1); /* Toque de roxo no hover */
+    background-color: rgba(106, 13, 173, 0.1);
     border-radius: 4px;
 }
 
-/* 4. Layout Principal (Main) */
+/*4-Layout Principal (Main)*/
 main {
     max-width: 900px;
     margin: 3rem auto;
@@ -93,7 +86,7 @@ main {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-/* 5. Estilos para Cardápio (ul/li) */
+/*5-Estilos para Cardápio (ul/li) */
 /* Aplicado em cardapio.blade.php */
 main ul {
     list-style: none;
@@ -117,7 +110,7 @@ main li:hover {
     box-shadow: 0 4px 10px rgba(200, 168, 69, 0.2);
 }
 
-/* 6. Estilos para Login (Formulário) */
+/*6-Estilos para Login (Formulário) */
 /* Aplicado em login.blade.php */
 form {
     display: flex;
@@ -166,12 +159,11 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: var(--color-accent-purple); /* Roxo no hover do botão */
+    background-color: var(--color-accent-purple);
     color: var(--color-text-light);
     box-shadow: 0 4px 15px rgba(106, 13, 173, 0.4);
 }
 
-/* Link secundário no Login */
 main > a {
     display: block;
     margin-top: 1rem;
@@ -185,7 +177,7 @@ main > a:hover {
     color: var(--color-primary-gold);
 }
 
-/* Responsividade básica */
+/*7-Responsividade*/
 @media (max-width: 600px) {
     header {
         flex-direction: column;

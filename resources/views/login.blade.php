@@ -1,4 +1,3 @@
-<!-- resources/views/login.blade.php -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
