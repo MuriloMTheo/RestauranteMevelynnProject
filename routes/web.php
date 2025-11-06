@@ -1,15 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClienteController;
 
 Route::get('/', function () {
-    return view('welcome');  // Página inicial
+    return view('welcome');
 });
 
 Route::get('/cardapio', function () {
-    return view('cardapio');  // Página do cardápio
-})->name('cardapio');  // Definindo o nome da rota como 'cardapio'
+    return view('cardapio');
+})->name('cardapio');
 
-Route::get('/login', function () {
-    return view('login');  // Página de login
-})->name('login');  // Definindo o nome da rota como 'login'
+// ROTAS DE CLIENTES 
+Route::resource('clientes', ClienteController::class)->middleware(['auth']);
+
+require __DIR__.'/auth.php';

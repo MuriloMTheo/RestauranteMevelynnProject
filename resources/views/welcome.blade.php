@@ -12,6 +12,7 @@
         <nav>
             <a href="{{ route('cardapio') }}">Cardápio</a>
             <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('register') }}">Cadastrar-se</a>
         </nav>
     </header>
     <main>
