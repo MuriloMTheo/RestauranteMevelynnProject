@@ -24,4 +24,9 @@ public function prato()
 {
 	return $this->belongsTo(Prato::class, 'cod_prato', 'cod_prato');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }

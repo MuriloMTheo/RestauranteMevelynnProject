@@ -19,4 +19,9 @@ public function ingredientes()
 {
 	return $this->hasMany(Ingrediente::class, 'cod_unidade', 'cod_unidade');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }

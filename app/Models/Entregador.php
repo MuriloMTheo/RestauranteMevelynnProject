@@ -19,4 +19,9 @@ public function pedidos()
 {
 	return $this->hasMany(Pedido::class, 'cod_entregador', 'cod_entregador');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }

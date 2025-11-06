@@ -29,4 +29,9 @@ public function itensCompra()
 {
 	return $this->hasMany(ItemCompra::class, 'cod_ingrediente', 'cod_ingrediente');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }

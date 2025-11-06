@@ -32,4 +32,12 @@ public function itensPedido()
 {
 	return $this->hasMany(ItemPedido::class, 'cod_prato', 'cod_prato');
 }
+
+	/**
+	 * Use primary key name for route model binding.
+	 */
+	public function getRouteKeyName()
+	{
+		return $this->primaryKey;
+	}
 }

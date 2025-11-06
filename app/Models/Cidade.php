@@ -24,4 +24,9 @@ public function fornecedores()
 {
 	return $this->hasMany(Fornecedor::class, 'cod_cidade', 'cod_cidade');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }

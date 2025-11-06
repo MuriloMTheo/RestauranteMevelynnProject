@@ -39,4 +39,9 @@ public function itensPedido()
 {
 	return $this->hasMany(ItemPedido::class, 'cod_pedido', 'cod_pedido');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }

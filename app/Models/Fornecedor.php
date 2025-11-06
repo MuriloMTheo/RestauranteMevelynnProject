@@ -24,4 +24,9 @@ public function compras()
 {
 	return $this->hasMany(Compra::class, 'cod_fornecedor', 'cod_fornecedor');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }

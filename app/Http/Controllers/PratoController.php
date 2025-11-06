@@ -19,11 +19,10 @@ class PratoController extends Controller
         $query = Prato::with('categoria');
 
         if ($term = $request->query('q')) {
-            $query->where('nome', 'like', "%{$term}%")
-                  ->orWhere('descricao', 'like', "%{$term}%");
+            $query->where('descricao', 'like', "%{$term}%");
         }
 
-        $pratos = $query->orderBy('nome')->paginate($perPage)->withQueryString();
+        $pratos = $query->orderBy('descricao')->paginate($perPage)->withQueryString();
 
         return view('pratos.index', compact('pratos'));
     }
@@ -33,7 +32,7 @@ class PratoController extends Controller
      */
     public function create()
     {
-        $categorias = Categoria::orderBy('nome')->get();
+        $categorias = Categoria::orderBy('descricao')->get();
         return view('pratos.create', compact('categorias'));
     }
 
@@ -43,16 +42,15 @@ class PratoController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nome' => 'required|string|max:255',
-            'descricao' => 'nullable|string',
-            'preco' => 'required|numeric',
-            'categoria_id' => 'required|exists:categorias,id',
+            'descricao' => 'required|string|max:255',
+            'cod_cat' => 'required|exists:categorias,cod_cat',
+            'valor_unitario' => 'required|numeric',
         ]);
 
         $prato = Prato::create($data);
 
         return redirect()->route('pratos.index')
-            ->with('success', "Prato '{".$prato->nome."}' cadastrado com sucesso.");
+            ->with('success', "Prato '{$prato->descricao}' cadastrado com sucesso.");
     }
 
     /**
@@ -61,7 +59,7 @@ class PratoController extends Controller
     public function show(Prato $prato)
     {
         $prato->load('categoria', 'composicoes.ingrediente');
-        $ingredientes = Ingrediente::orderBy('nome')->get();
+        $ingredientes = Ingrediente::orderBy('descricao')->get();
         return view('pratos.show', compact('prato', 'ingredientes'));
     }
 
@@ -70,7 +68,7 @@ class PratoController extends Controller
      */
     public function edit(Prato $prato)
     {
-        $categorias = Categoria::orderBy('nome')->get();
+        $categorias = Categoria::orderBy('descricao')->get();
         return view('pratos.edit', compact('prato', 'categorias'));
     }
 
@@ -80,16 +78,15 @@ class PratoController extends Controller
     public function update(Request $request, Prato $prato)
     {
         $data = $request->validate([
-            'nome' => 'required|string|max:255',
-            'descricao' => 'nullable|string',
-            'preco' => 'required|numeric',
-            'categoria_id' => 'required|exists:categorias,id',
+            'descricao' => 'required|string|max:255',
+            'cod_cat' => 'required|exists:categorias,cod_cat',
+            'valor_unitario' => 'required|numeric',
         ]);
 
         $prato->update($data);
 
         return redirect()->route('pratos.index')
-            ->with('success', "Prato '{".$prato->nome."}' atualizado com sucesso.");
+            ->with('success', "Prato '{$prato->descricao}' atualizado com sucesso.");
     }
 
     /**
@@ -101,6 +98,6 @@ class PratoController extends Controller
         $prato->delete();
 
         return redirect()->route('pratos.index')
-            ->with('success', "Prato '{".$prato->nome."}' excluído com sucesso.");
+            ->with('success', "Prato '{$prato->descricao}' excluído com sucesso.");
     }
 }

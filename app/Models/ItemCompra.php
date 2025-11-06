@@ -24,4 +24,9 @@ public function ingrediente()
 {
 	return $this->belongsTo(Ingrediente::class, 'cod_ingrediente', 'cod_ingrediente');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }

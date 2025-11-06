@@ -19,4 +19,9 @@ public function pratos()
 {
 	return $this->hasMany(Prato::class, 'cod_cat', 'cod_cat');
 }
+
+public function getRouteKeyName()
+{
+	return $this->primaryKey;
+}
 }
