@@ -1,62 +1,73 @@
 :root {
-    --color-bg-dark: #121212;
-    --color-surface: #1e1e1e;
-    --color-text-light: #f0f0f0;
-    --color-primary-gold: #c8a845;
-    --color-accent-purple: #6a0dad;
+    --color-bg-dark: #0f0f0f;
+    --color-surface: #1b1b1b;
+    --color-text-light: #f5f5f5;
+    --color-primary-gold: #d4af37;
+    --color-accent-purple: #7b2cbf;
+    --color-border: #2b2b2b;
     --font-stack: "Cormorant Garamond", Georgia, serif;
     --font-stack-alt: "Inter", sans-serif;
+    --transition-fast: 0.25s ease;
+    --transition-slow: 0.5s ease;
 }
 
-/*1-Base e Reset*/
+/* 1. Reset e base */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body {
+html, body {
     font-family: var(--font-stack-alt);
     background-color: var(--color-bg-dark);
     color: var(--color-text-light);
     line-height: 1.6;
     min-height: 100vh;
+    scroll-behavior: smooth;
+    animation: fadeIn var(--transition-slow);
 }
 
-/*2-Tipografia */
-h1,
-h2 {
+/* Fade suave na página */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. Tipografia */
+h1, h2 {
     font-family: var(--font-stack);
-    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     color: var(--color-primary-gold);
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--color-surface);
-    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.4rem;
+    color: var(--color-text-light);
 }
 
-p {
-    font-size: 1rem;
-    color: #b0b0b0;
-}
-
-/*3-Header e Navegação*/
+/* 3. Header e Navegação */
 header {
-    background-color: var(--color-surface);
+    background: linear-gradient(90deg, var(--color-surface), #111);
     padding: 1.5rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(4px);
 }
 
 nav a {
@@ -65,53 +76,56 @@ nav a {
     font-weight: 600;
     margin-left: 1.5rem;
     padding: 0.5rem 1rem;
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
+    border-radius: 6px;
+    transition: all var(--transition-fast);
 }
 
 nav a:hover {
-    color: var(--color-accent-purple);
-    border-color: var(--color-accent-purple);
-    background-color: rgba(106, 13, 173, 0.1);
-    border-radius: 4px;
+    color: var(--color-text-light);
+    background-color: var(--color-accent-purple);
+    box-shadow: 0 0 10px rgba(123, 44, 191, 0.5);
 }
 
-/*4-Layout Principal (Main)*/
+/* 4. Layout principal */
 main {
-    max-width: 900px;
+    max-width: 950px;
     margin: 3rem auto;
     padding: 2rem;
-    background-color: var(--color-surface);
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    transition: transform var(--transition-slow);
 }
 
-/*5-Estilos para Cardápio (ul/li) */
-/* Aplicado em cardapio.blade.php */
+main:hover {
+    transform: scale(1.01);
+}
+
+/* 5. Cardápio */
 main ul {
     list-style: none;
-    padding: 0;
 }
 
 main li {
     background-color: var(--color-bg-dark);
     margin-bottom: 1rem;
-    padding: 1.2rem;
-    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
     border-left: 4px solid var(--color-primary-gold);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 1.1rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 main li:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(200, 168, 69, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
 }
 
-/*6-Estilos para Login (Formulário) */
-/* Aplicado em login.blade.php */
+/* 6. Formulários (login, cadastro) */
 form {
     display: flex;
     flex-direction: column;
@@ -128,56 +142,55 @@ label {
 input[type="email"],
 input[type="password"] {
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.9rem;
     background-color: var(--color-bg-dark);
-    border: 1px solid #333;
+    border: 1px solid var(--color-border);
     color: var(--color-text-light);
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
+input:focus {
     border-color: var(--color-primary-gold);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(200, 168, 69, 0.5);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 button[type="submit"] {
-    background-color: var(--color-primary-gold);
-    color: var(--color-bg-dark);
+    background: linear-gradient(135deg, var(--color-primary-gold), var(--color-accent-purple));
+    color: var(--color-text-light);
     border: none;
     padding: 1rem;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 6px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all var(--transition-fast);
 }
 
 button[type="submit"]:hover {
-    background-color: var(--color-accent-purple);
-    color: var(--color-text-light);
-    box-shadow: 0 4px 15px rgba(106, 13, 173, 0.4);
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(123, 44, 191, 0.6);
 }
 
+/* Link auxiliar (login/cadastro) */
 main > a {
     display: block;
     margin-top: 1rem;
     text-align: center;
     color: #aaa;
     text-decoration: underline;
-    transition: color 0.3s ease;
+    transition: color var(--transition-fast);
 }
 
 main > a:hover {
     color: var(--color-primary-gold);
 }
 
-/*7-Responsividade*/
+/* 7. Responsividade */
 @media (max-width: 600px) {
     header {
         flex-direction: column;
@@ -188,20 +201,28 @@ main > a:hover {
         margin-top: 1rem;
         display: flex;
         flex-direction: column;
+        gap: 0.5rem;
         width: 100%;
     }
 
     nav a {
-        margin: 0.5rem 0;
+        margin: 0;
         border: none;
+        width: 100%;
     }
 
     main {
         margin: 1.5rem;
-        padding: 1rem;
+        padding: 1.2rem;
     }
 
     h1 {
         font-size: 2rem;
+    }
+
+    main li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 }
