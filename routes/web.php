@@ -18,7 +18,7 @@ Route::get('/login', function () {
 use App\Http\Controllers\AuthController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::get('/register', function () { return view('register'); })->name('register');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -36,25 +36,35 @@ use App\Http\Controllers\EntregadorController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\PedidoController;
 
-Route::resources([
-    'pratos' => PratoController::class,
-    'categorias' => CategoriaController::class,
-    'cidades' => CidadeController::class,
-    'clientes' => ClienteController::class,
-    'fornecedores' => FornecedorController::class,
-    'compras' => CompraController::class,
-    'ingredientes' => IngredienteController::class,
-    'unidades' => UnidadeController::class,
-    'garcons' => GarconController::class,
-    'entregadores' => EntregadorController::class,
-    'mesas' => MesaController::class,
-    'pedidos' => PedidoController::class,
-]);
+// Admin-only resource routes (protected by EnsureAdmin middleware)
+Route::middleware(\App\Http\Middleware\EnsureAdmin::class)->group(function () {
+    Route::resources([
+        'pratos' => PratoController::class,
+        'categorias' => CategoriaController::class,
+        'cidades' => CidadeController::class,
+        'clientes' => ClienteController::class,
+        'fornecedores' => FornecedorController::class,
+        'compras' => CompraController::class,
+        'ingredientes' => IngredienteController::class,
+        'unidades' => UnidadeController::class,
+        'garcons' => GarconController::class,
+        'entregadores' => EntregadorController::class,
+        'mesas' => MesaController::class,
+    ]);
+});
+
+// Pedidos: available to authenticated clients for create/view, admin can manage via admin group
+Route::resource('pedidos', PedidoController::class);
 
 // Items and composition
 use App\Http\Controllers\ItemCompraController;
 use App\Http\Controllers\ItemPedidoController;
 use App\Http\Controllers\ComposicaoController;
+
+// Meus pedidos (cliente autenticado)
+Route::get('meus-pedidos', [PedidoController::class, 'meusPedidos'])->name('pedidos.meus')->middleware('auth');
+// Finalize a pedido (customer action)
+Route::post('pedidos/{pedido}/finalizar', [PedidoController::class, 'finalizar'])->name('pedidos.finalizar')->middleware('auth');
 
 Route::post('itens-compra', [ItemCompraController::class, 'store'])->name('itens-compra.store');
 Route::delete('itens-compra/{item}', [ItemCompraController::class, 'destroy'])->name('itens-compra.destroy');

@@ -14,9 +14,15 @@ class ItemPedidoController extends Controller
             'cod_pedido' => 'required|exists:pedidos,cod_pedido',
             'cod_prato' => 'required|exists:pratos,cod_prato',
             'quantidade' => 'required|integer|min:1',
-            'valor_unitario' => 'required|numeric',
+            'valor_unitario' => 'nullable|numeric',
             'cod_garcom' => 'nullable|exists:garcons,cod_garcom',
         ]);
+
+        // If valor_unitario wasn't provided or is empty/zero, use the prato's registered price
+        if (empty($data['valor_unitario'])) {
+            $prato = Prato::find($data['cod_prato']);
+            $data['valor_unitario'] = $prato ? $prato->valor_unitario : 0;
+        }
 
         $data['data_hora'] = now();
 
